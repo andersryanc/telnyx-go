@@ -163,6 +163,38 @@ func (m VoiceSip) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
+// VoiceQueue <Queue> TeXML Child Tag
+//
+// Child tag within <Dial> verb.
+//
+// https://developers.telnyx.com/docs/voice/programmable-voice/texml-verbs/dial#queue-attributes
+type VoiceQueue struct {
+	Url                string
+	Method             string
+	InnerElements      []Element
+	OptionalAttributes map[string]string
+}
+
+func (m VoiceQueue) GetName() string {
+	return "Queue"
+}
+
+func (m VoiceQueue) GetText() string {
+	return ""
+}
+
+func (m VoiceQueue) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Url":    m.Url,
+		"Method": m.Method,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceQueue) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
 // VoiceConference <Conference> TeXML Verb
 //
 // https://developers.telnyx.com/docs/voice/programmable-voice/texml-verbs/conference
@@ -553,7 +585,9 @@ func (m VoiceRefer) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-// VoiceReferSip <Sip> TeXML Noun used in <Refer>
+// VoiceReferSip <Sip> TeXML Child Tag
+//
+// Child tag within <Refer> verb.
 //
 // https://developers.telnyx.com/docs/voice/programmable-voice/texml-verbs/refer#examples
 type VoiceReferSip struct {
@@ -674,7 +708,7 @@ func (m VoiceStop) GetInnerElements() []Element {
 	return m.InnerElements
 }
 
-// VoiceStream <Stream> TeXML Noun
+// VoiceStream <Stream> TeXML Verb
 //
 // https://developers.telnyx.com/docs/voice/programmable-voice/texml-verbs/stream
 //
@@ -737,5 +771,35 @@ func (m VoiceStart) GetAttr() (map[string]string, map[string]string) {
 }
 
 func (m VoiceStart) GetInnerElements() []Element {
+	return m.InnerElements
+}
+
+// VoiceSupression <Suppression> TeXML Verb
+//
+// https://developers.telnyx.com/docs/voice/programmable-voice/texml-verbs/suppression
+//
+// The Suppression instruction starts noise suppression on the call to improve audio quality.
+type VoiceSupression struct {
+	Direction          string
+	InnerElements      []Element
+	OptionalAttributes map[string]string
+}
+
+func (m VoiceSupression) GetName() string {
+	return "Suppression"
+}
+
+func (m VoiceSupression) GetText() string {
+	return ""
+}
+
+func (m VoiceSupression) GetAttr() (map[string]string, map[string]string) {
+	paramsAttr := map[string]string{
+		"Direction": m.Direction,
+	}
+	return m.OptionalAttributes, paramsAttr
+}
+
+func (m VoiceSupression) GetInnerElements() []Element {
 	return m.InnerElements
 }
